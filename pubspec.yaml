@@ -71,6 +71,7 @@ flutter:
     - assets/images/titan_logo.png
     - assets/images/titan_logo_new.svg
     - assets/images/home_top.svg
+    - assets/icons/
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

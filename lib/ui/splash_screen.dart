@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+// import 'package:flutter_animate/flutter_animate.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import '../constants/app_theme.dart';
 import '../utils/responsive_utils.dart';
 import 'login_screen.dart';
+import '../widgets/app_button.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -220,8 +221,10 @@ class _SplashScreenState extends State<SplashScreen>
                             // Get Started Button
                             SizedBox(
                               width: isMobile ? double.infinity : 250,
-                              height: 56,
-                              child: ElevatedButton(
+                              child: AppButton(
+                                label: 'Get Started',
+                                size: AppButtonSize.large,
+                                trailing: const Icon(Icons.arrow_forward_rounded, size: 20),
                                 onPressed: () {
                                   Navigator.of(context).pushReplacement(
                                     PageRouteBuilder(
@@ -234,34 +237,6 @@ class _SplashScreenState extends State<SplashScreen>
                                     ),
                                   );
                                 },
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppTheme.primaryColor,
-                                  foregroundColor: Colors.white,
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(AppTheme.radiusL),
-                                  ),
-                                  shadowColor: AppTheme.primaryColor.withOpacity(0.3),
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      'Get Started',
-                                      style: AppTheme.buttonText.copyWith(
-                                        fontSize: ResponsiveUtils.getResponsiveFontSize(
-                                          context, 
-                                          isMobile ? 16 : 18,
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: AppTheme.spacingS),
-                                    const Icon(
-                                      Icons.arrow_forward_rounded,
-                                      size: 20,
-                                    ),
-                                  ],
-                                ),
                               ),
                             ),
                             

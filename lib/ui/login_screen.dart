@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_animate/flutter_animate.dart';
+// import 'package:flutter_animate/flutter_animate.dart';
 import '../constants/app_theme.dart';
 import '../utils/responsive_utils.dart';
 import 'home_screen.dart';
+import '../widgets/app_button.dart';
+import '../widgets/app_text_field.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -212,9 +214,15 @@ class _LoginScreenState extends State<LoginScreen>
                               SizedBox(height: AppTheme.spacingXL),
 
                               // Email Field
-                              TextFormField(
+                              AppTextField(
                                 controller: _emailController,
                                 keyboardType: TextInputType.emailAddress,
+                                label: 'Email Address',
+                                hint: 'Enter your email',
+                                prefixIcon: const Icon(
+                                  Icons.email_outlined,
+                                  color: AppTheme.textSecondary,
+                                ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter your email';
@@ -225,42 +233,27 @@ class _LoginScreenState extends State<LoginScreen>
                                   }
                                   return null;
                                 },
-                                decoration: InputDecoration(
-                                  labelText: 'Email Address',
-                                  hintText: 'Enter your email',
-                                  prefixIcon: const Icon(
-                                    Icons.email_outlined,
-                                    color: AppTheme.textSecondary,
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(AppTheme.radiusM),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(AppTheme.radiusM),
-                                    borderSide: const BorderSide(color: AppTheme.borderColor),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(AppTheme.radiusM),
-                                    borderSide: const BorderSide(
-                                      color: AppTheme.primaryColor,
-                                      width: 2,
-                                    ),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(AppTheme.radiusM),
-                                    borderSide: const BorderSide(color: AppTheme.errorColor),
-                                  ),
-                                  filled: true,
-                                  fillColor: AppTheme.backgroundColor,
-                                ),
                               ),
                               
                               SizedBox(height: AppTheme.spacingM),
 
                               // Password Field
-                              TextFormField(
+                              AppTextField(
                                 controller: _passwordController,
                                 obscureText: !_isPasswordVisible,
+                                label: 'Password',
+                                hint: 'Enter your password',
+                                prefixIcon: const Icon(
+                                  Icons.lock_outlined,
+                                  color: AppTheme.textSecondary,
+                                ),
+                                suffixIcon: IconButton(
+                                  icon: Icon(
+                                    _isPasswordVisible ? Icons.visibility_off : Icons.visibility,
+                                    color: AppTheme.textSecondary,
+                                  ),
+                                  onPressed: _togglePasswordVisibility,
+                                ),
                                 validator: (value) {
                                   if (value == null || value.isEmpty) {
                                     return 'Please enter your password';
@@ -270,43 +263,6 @@ class _LoginScreenState extends State<LoginScreen>
                                   }
                                   return null;
                                 },
-                                decoration: InputDecoration(
-                                  labelText: 'Password',
-                                  hintText: 'Enter your password',
-                                  prefixIcon: const Icon(
-                                    Icons.lock_outlined,
-                                    color: AppTheme.textSecondary,
-                                  ),
-                                  suffixIcon: IconButton(
-                                    icon: Icon(
-                                      _isPasswordVisible
-                                          ? Icons.visibility_off
-                                          : Icons.visibility,
-                                      color: AppTheme.textSecondary,
-                                    ),
-                                    onPressed: _togglePasswordVisibility,
-                                  ),
-                                  border: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(AppTheme.radiusM),
-                                  ),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(AppTheme.radiusM),
-                                    borderSide: const BorderSide(color: AppTheme.borderColor),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(AppTheme.radiusM),
-                                    borderSide: const BorderSide(
-                                      color: AppTheme.primaryColor,
-                                      width: 2,
-                                    ),
-                                  ),
-                                  errorBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(AppTheme.radiusM),
-                                    borderSide: const BorderSide(color: AppTheme.errorColor),
-                                  ),
-                                  filled: true,
-                                  fillColor: AppTheme.backgroundColor,
-                                ),
                               ),
                               
                               SizedBox(height: AppTheme.spacingM),
@@ -350,51 +306,14 @@ class _LoginScreenState extends State<LoginScreen>
                               SizedBox(height: AppTheme.spacingL),
 
                               // Login Button
-                              SizedBox(
-                                width: double.infinity,
-                                height: 56,
-                                child: ElevatedButton(
-                                  onPressed: _isLoading ? null : _handleLogin,
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor: AppTheme.primaryColor,
-                                    foregroundColor: Colors.white,
-                                    elevation: 0,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(AppTheme.radiusL),
-                                    ),
-                                    shadowColor: AppTheme.primaryColor.withOpacity(0.3),
-                                  ),
-                                  child: _isLoading
-                                      ? const SizedBox(
-                                          height: 20,
-                                          width: 20,
-                                          child: CircularProgressIndicator(
-                                            strokeWidth: 2,
-                                            valueColor: AlwaysStoppedAnimation<Color>(
-                                              Colors.white,
-                                            ),
-                                          ),
-                                        )
-                                      : Row(
-                                          mainAxisAlignment: MainAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              'Sign In',
-                                              style: AppTheme.buttonText.copyWith(
-                                                fontSize: ResponsiveUtils.getResponsiveFontSize(
-                                                  context,
-                                                  isMobile ? 16 : 18,
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(width: AppTheme.spacingS),
-                                            const Icon(
-                                              Icons.login_rounded,
-                                              size: 20,
-                                            ),
-                                          ],
-                                        ),
-                                ),
+                              AppButton(
+                                label: 'Sign In',
+                                onPressed: _handleLogin,
+                                isLoading: _isLoading,
+                                variant: AppButtonVariant.primary,
+                                size: AppButtonSize.large,
+                                fullWidth: true,
+                                trailing: const Icon(Icons.login_rounded, size: 20),
                               ),
                               
                               SizedBox(height: AppTheme.spacingL),
@@ -429,32 +348,15 @@ class _LoginScreenState extends State<LoginScreen>
                               SizedBox(height: AppTheme.spacingL),
 
                               // Update Configuration Button
-                              SizedBox(
-                                width: double.infinity,
-                                height: 48,
-                                child: OutlinedButton.icon(
-                                  onPressed: () {
-                                    // Handle configuration update
-                                  },
-                                  icon: const Icon(Icons.settings_outlined),
-                                  label: Text(
-                                    'Update Configuration',
-                                    style: AppTheme.buttonText.copyWith(
-                                      color: AppTheme.primaryColor,
-                                      fontSize: ResponsiveUtils.getResponsiveFontSize(
-                                        context,
-                                        isMobile ? 14 : 16,
-                                      ),
-                                    ),
-                                  ),
-                                  style: OutlinedButton.styleFrom(
-                                    foregroundColor: AppTheme.primaryColor,
-                                    side: const BorderSide(color: AppTheme.primaryColor),
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(AppTheme.radiusL),
-                                    ),
-                                  ),
-                                ),
+                              AppButton(
+                                label: 'Update Configuration',
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed('/configuration');
+                                },
+                                variant: AppButtonVariant.outline,
+                                size: AppButtonSize.medium,
+                                fullWidth: true,
+                                icon: Icons.settings_outlined,
                               ),
                               
                               SizedBox(height: AppTheme.spacingL),
