@@ -5,6 +5,7 @@ import '../constants/app_theme.dart';
 import '../utils/responsive_utils.dart';
 import '../widgets/app_card.dart';
 import 'widgets_screen.dart';
+import 'inventory_screen.dart';
 
 /// Simple blank white home page shell shown after configuration setup
 /// Uses a custom bottom navigation with SVG icons from assets/icons
@@ -63,6 +64,16 @@ class _TitanHomePageState extends State<TitanHomePage> with TickerProviderStateM
 
   @override
   Widget build(BuildContext context) {
+    // Show different screens based on selected tab
+    switch (_currentIndex) {
+      case 3: // Inventory tab
+        return const InventoryScreen();
+      default:
+        return _buildHomeContent();
+    }
+  }
+
+  Widget _buildHomeContent() {
     final isMobile = ResponsiveUtils.isMobile(context);
     // final isTablet = ResponsiveUtils.isTablet(context);
 

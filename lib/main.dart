@@ -4,6 +4,7 @@ import 'package:titan_ui/ui/splash_screen.dart';
 import 'package:titan_ui/ui/configuration_screen.dart';
 import 'package:titan_ui/ui/home_screen.dart';
 import 'package:titan_ui/ui/widgets_screen.dart';
+import 'package:titan_ui/ui/inventory_screen.dart';
 import 'constants/app_theme.dart';
 
 void main() {
@@ -26,6 +27,7 @@ class TitanApp extends StatelessWidget {
         '/configuration': (context) => const ConfigurationScreen(),
         '/home': (context) => const TitanHomePage(),
         '/widgets': (context) => const WidgetsScreen(),
+        '/inventory': (context) => const InventoryScreen(),
       },
     );
   }
