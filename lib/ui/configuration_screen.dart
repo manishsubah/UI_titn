@@ -8,7 +8,7 @@ import '../widgets/app_label.dart';
 import '../widgets/app_url_field.dart';
 import '../widgets/app_qr_button.dart';
 import '../widgets/app_divider.dart';
-import 'home_screen.dart';
+import 'main_navigation_screen.dart';
 
 class ConfigurationScreen extends StatefulWidget {
   const ConfigurationScreen({super.key});
@@ -53,7 +53,7 @@ class _ConfigurationScreenState extends State<ConfigurationScreen> {
       // Navigate to Home after setup
       if (!mounted) return;
       Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (_) => const TitanHomePage()),
+        MaterialPageRoute(builder: (_) => const MainNavigationScreen()),
       );
     }
   }

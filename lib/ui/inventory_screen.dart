@@ -3,7 +3,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../constants/app_theme.dart';
 import '../utils/responsive_utils.dart';
 import '../widgets/app_card.dart';
-import 'home_screen.dart';
 
 class InventoryScreen extends StatefulWidget {
   const InventoryScreen({super.key});
@@ -20,13 +19,41 @@ class _InventoryScreenState extends State<InventoryScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFF2C2C2E), // Dark grey background as shown
-      body: SafeArea(
+      backgroundColor: AppTheme.backgroundColor,
+      appBar: AppBar(
+        title: Row(
+          children: [
+            SvgPicture.asset(
+              'assets/images/titan_logo_new.svg',
+              height: 28,
+              width: 28,
+            ),
+            const SizedBox(width: AppTheme.spacingS),
+            Flexible(
+              child: Text(
+                'Inventory',
+                style: AppTheme.heading4.copyWith(fontSize: 18),
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.notifications_outlined),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Icon(Icons.account_circle_outlined),
+            onPressed: () {},
+          ),
+        ],
+        elevation: 0,
+        backgroundColor: AppTheme.surfaceColor,
+      ),
+      body: ResponsiveContainer(
         child: Column(
           children: [
-            // Header Section
-            _buildHeader(),
-            
             // Tab Navigation and Actions
             _buildTabNavigation(),
             
@@ -37,93 +64,10 @@ class _InventoryScreenState extends State<InventoryScreen> {
           ],
         ),
       ),
-      bottomNavigationBar: _buildBottomNavigation(),
     );
   }
 
-  Widget _buildHeader() {
-    return Container(
-      padding: const EdgeInsets.all(AppTheme.spacingM),
-      child: Row(
-        children: [
-          // Profile Icon
-          Container(
-            width: 40,
-            height: 40,
-            decoration: BoxDecoration(
-              color: Colors.grey[400],
-              shape: BoxShape.circle,
-            ),
-            child: const Icon(
-              Icons.person,
-              color: Colors.white,
-              size: 24,
-            ),
-          ),
-          
-          const SizedBox(width: AppTheme.spacingM),
-          
-          // Title and Portal
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Inventory',
-                  style: AppTheme.heading4.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  'Titan Default Portal',
-                  style: AppTheme.bodySmall.copyWith(
-                    color: Colors.white.withOpacity(0.7),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          
-          // Notification Icon
-          Stack(
-            children: [
-              IconButton(
-                icon: const Icon(
-                  Icons.notifications_outlined,
-                  color: Colors.white,
-                  size: 24,
-                ),
-                onPressed: () {},
-              ),
-              Positioned(
-                right: 8,
-                top: 8,
-                child: Container(
-                  width: 8,
-                  height: 8,
-                  decoration: const BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          
-          // Grid Menu Icon
-          IconButton(
-            icon: const Icon(
-              Icons.grid_view_outlined,
-              color: Colors.white,
-              size: 24,
-            ),
-            onPressed: () {},
-          ),
-        ],
-      ),
-    );
-  }
+
 
   Widget _buildTabNavigation() {
     return Container(
@@ -184,7 +128,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
               IconButton(
                 icon: const Icon(
                   Icons.search,
-                  color: Colors.white,
+                  color: AppTheme.textSecondary,
                   size: 24,
                 ),
                 onPressed: () {},
@@ -194,7 +138,7 @@ class _InventoryScreenState extends State<InventoryScreen> {
               IconButton(
                 icon: const Icon(
                   Icons.tune,
-                  color: Colors.white,
+                  color: AppTheme.textSecondary,
                   size: 24,
                 ),
                 onPressed: () {},
@@ -216,14 +160,14 @@ class _InventoryScreenState extends State<InventoryScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(vertical: AppTheme.spacingM),
         decoration: BoxDecoration(
-          color: isSelected ? AppTheme.primaryColor : Colors.grey[600],
+          color: isSelected ? AppTheme.primaryColor : AppTheme.surfaceColor,
           borderRadius: BorderRadius.circular(AppTheme.radiusL),
         ),
         child: Text(
           title,
           textAlign: TextAlign.center,
           style: AppTheme.bodyMedium.copyWith(
-            color: isSelected ? Colors.white : Colors.white,
+            color: isSelected ? Colors.white : AppTheme.textSecondary,
             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
           ),
         ),
@@ -493,102 +437,5 @@ class _InventoryScreenState extends State<InventoryScreen> {
     );
   }
 
-  Widget _buildBottomNavigation() {
-    return SafeArea(
-      top: false,
-      child: Container(
-        decoration: const BoxDecoration(
-          color: AppTheme.surfaceColor,
-          boxShadow: AppTheme.shadowM,
-        ),
-        height: kBottomNavigationBarHeight + 12,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          padding: const EdgeInsets.symmetric(horizontal: 8),
-          child: Row(
-            children: [
-              _buildNavButton(
-                asset: 'assets/icons/home.svg',
-                label: 'Home',
-                isSelected: false,
-                onTap: () {
-                  Navigator.of(context).pushReplacement(
-                    MaterialPageRoute(builder: (context) => const TitanHomePage()),
-                  );
-                },
-              ),
-              _buildNavButton(
-                asset: 'assets/icons/test_request.svg',
-                label: 'Test Request',
-                isSelected: false,
-                onTap: () {},
-              ),
-              _buildNavButton(
-                asset: 'assets/icons/work_order.svg',
-                label: 'Work Order',
-                isSelected: false,
-                onTap: () {},
-              ),
-              _buildNavButton(
-                asset: 'assets/icons/test_article.svg',
-                label: 'Inventory',
-                isSelected: true,
-                onTap: () {},
-              ),
-              _buildNavButton(
-                asset: 'assets/icons/reporting.svg',
-                label: 'Reporting',
-                isSelected: false,
-                onTap: () {},
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
-  Widget _buildNavButton({
-    required String asset,
-    required String label,
-    required bool isSelected,
-    required VoidCallback onTap,
-  }) {
-    final Color iconColor = isSelected ? AppTheme.primaryColor : AppTheme.textSecondary;
-    final TextStyle labelStyle = AppTheme.bodySmall.copyWith(
-      color: isSelected ? AppTheme.primaryColor : AppTheme.textSecondary,
-      fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-      fontSize: 11,
-      height: 1.05,
-    );
-
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 4),
-      child: InkWell(
-        borderRadius: BorderRadius.circular(AppTheme.radiusL),
-        onTap: onTap,
-        child: Container(
-          width: 86,
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-          decoration: BoxDecoration(
-            color: isSelected ? AppTheme.primaryColor.withOpacity(0.08) : Colors.transparent,
-            borderRadius: BorderRadius.circular(AppTheme.radiusL),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SvgPicture.asset(
-                asset,
-                height: 24,
-                width: 24,
-                colorFilter: ColorFilter.mode(iconColor, BlendMode.srcIn),
-              ),
-              const SizedBox(height: 4),
-              Text(label, maxLines: 1, overflow: TextOverflow.ellipsis, style: labelStyle, textAlign: TextAlign.center),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 }

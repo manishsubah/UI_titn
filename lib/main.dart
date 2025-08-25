@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:titan_ui/ui/login_screen.dart';
 import 'package:titan_ui/ui/splash_screen.dart';
 import 'package:titan_ui/ui/configuration_screen.dart';
-import 'package:titan_ui/ui/home_screen.dart';
+import 'package:titan_ui/ui/main_navigation_screen.dart';
 import 'package:titan_ui/ui/widgets_screen.dart';
-import 'package:titan_ui/ui/inventory_screen.dart';
 import 'constants/app_theme.dart';
 
 void main() {
@@ -25,9 +24,8 @@ class TitanApp extends StatelessWidget {
         '/splash': (context) => const SplashScreen(),
         '/login': (context) => const LoginScreen(),
         '/configuration': (context) => const ConfigurationScreen(),
-        '/home': (context) => const TitanHomePage(),
+        '/home': (context) => const MainNavigationScreen(),
         '/widgets': (context) => const WidgetsScreen(),
-        '/inventory': (context) => const InventoryScreen(),
       },
     );
   }
